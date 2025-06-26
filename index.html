@@ -429,16 +429,22 @@ defaultSize = 100;
           <th style="padding: 6px 10px; border: 1px solid #ddd;">Location</th>
           <th style="padding: 6px 10px; border: 1px solid #ddd;">Payment Date</th>
           <th style="padding: 6px 10px; border: 1px solid #ddd;">Permitted Until</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd;">Map</th>
         </tr>
       </thead>
       <tbody id="operational-areas-body">
-        <tr><td colspan="3" style="padding: 10px; text-align: center;">Loading data...</td></tr>
+        <tr><td colspan="4" style="padding: 10px; text-align: center;">Loading data...</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <script>
+  function generateGoogleMapsLink(location) {
+    const query = encodeURIComponent(location);
+    return `https://www.google.com/maps/search/?api=1&query=${query}`;
+  }
+
   fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
     .then(response => response.json())
     .then(data => {
@@ -450,12 +456,13 @@ defaultSize = 100;
           <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Location'] || ''}</td>
           <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Payment Date'] || ''}</td>
           <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Permitted Until'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
         `;
         tbody.appendChild(tr);
       });
     })
     .catch(error => {
-      document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="3" style="color: red; padding: 10px;">Failed to load data</td></tr>`;
+      document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="4" style="color: red; padding: 10px;">Failed to load data</td></tr>`;
       console.error('Error fetching data:', error);
     });
 </script>
