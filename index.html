@@ -426,10 +426,10 @@ defaultSize = 100;
     <table id="operational-areas-table" style="border-collapse: collapse; margin-top: 10px; width: auto; max-width: 100%;">
       <thead>
         <tr style="background-color: #f9f9f9;">
-          <th style="padding: 6px 10px; border: 1px solid #ddd;">Location</th>
-          <th style="padding: 6px 10px; border: 1px solid #ddd;">Payment Date</th>
-          <th style="padding: 6px 10px; border: 1px solid #ddd;">Permitted Until</th>
-          <th style="padding: 6px 10px; border: 1px solid #ddd;">Map</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Location</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Payment Date</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Permitted Until</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Map</th>
         </tr>
       </thead>
       <tbody id="operational-areas-body">
@@ -453,16 +453,16 @@ defaultSize = 100;
       data.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Location'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Payment Date'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd;">${row['Permitted Until'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
         `;
         tbody.appendChild(tr);
       });
     })
     .catch(error => {
-      document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="4" style="color: red; padding: 10px;">Failed to load data</td></tr>`;
+      document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="4" style="color: red; padding: 10px; text-align: center;">Failed to load data</td></tr>`;
       console.error('Error fetching data:', error);
     });
 </script>
