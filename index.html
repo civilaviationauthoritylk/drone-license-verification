@@ -410,6 +410,8 @@ defaultSize = 100;
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Full Name:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Lokunekathige Indika Deshapriya Amarasinghe</td></tr>
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Reference Number:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">OCDS/NAVEL&AIR/11/2025 (2137)</td></tr>
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Insurer:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Sri Lanka Insurance</td></tr>
+<tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Issued Date:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">23/06/2025</td></tr>
+<tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Valid Until:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">23/06/2027</td></tr>
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Date of Birth:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">23/04/1996</td></tr>
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">NIC Number:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">961142474V</td></tr>
 <tr><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">Address:</td><td style="padding: 6px 10px; border: 1px solid #ddd; white-space: nowrap; vertical-align: top;">2C, The Heights Apartment, Elvitigala Mw, Colombo 5</td></tr>
@@ -419,7 +421,7 @@ defaultSize = 100;
 </table>
 </div>
 <section style="margin-top: 30px;">
-  <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Approved Filming Areas</h3>
+  <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Approved Operational Areas</h3>
   <div style="overflow-x: auto;">
     <table id="operational-areas-table" style="border-collapse: collapse; margin-top: 10px; width: auto; max-width: 100%;">
       <thead>
@@ -438,18 +440,9 @@ defaultSize = 100;
 </section>
 
 <script>
-  function generateGoogleMapsWebLink(location) {
-    const query = encodeURIComponent(location + ' boundary');
-    return `https://www.google.com/maps/place/${query}`;
-  }
-
-  function formatDateToLongStyle(dateStr) {
-    const date = new Date(dateStr);
-    const day = date.getDate();
-    const suffix = (d => d > 3 && d < 21 ? 'th' : ['th','st','nd','rd'][d % 10] || 'th')(day);
-    const options = { month: 'long', year: 'numeric' };
-    const monthYear = date.toLocaleDateString('en-GB', options);
-    return `${day}${suffix} ${monthYear}`;
+  function generateGoogleMapsLink(location) {
+    const query = encodeURIComponent(location);
+    return `https://www.google.com/maps/search/?api=1&query=${query}`;
   }
 
   fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
@@ -460,12 +453,10 @@ defaultSize = 100;
       data.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">\${row['Location'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">\${formatDateToLongStyle(row['Payment Date'])}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">\${formatDateToLongStyle(row['Permitted Until'])}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
-            <a href="\${generateGoogleMapsWebLink(row['Location'])}" target="_blank" rel="noopener noreferrer">View Map</a>
-          </td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
         `;
         tbody.appendChild(tr);
       });
