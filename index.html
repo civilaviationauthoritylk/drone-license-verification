@@ -439,10 +439,15 @@ defaultSize = 100;
   </div>
 </section>
 
+
 <script>
-  function generateGoogleMapsLink(location) {
-    const query = encodeURIComponent(location);
-    return `https://www.google.com/maps/search/?api=1&query=${query}`;
+  function generateMapLinks(location) {
+    const googleQuery = encodeURIComponent(location + ' boundary');
+    const osmQuery = encodeURIComponent(location);
+    return `
+      <a href="https://www.google.com/maps/place/${googleQuery}" target="_blank">Google</a> |
+      <a href="https://www.openstreetmap.org/search?query=${osmQuery}" target="_blank">OSM</a>
+    `;
   }
 
   fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
@@ -452,12 +457,12 @@ defaultSize = 100;
       tbody.innerHTML = '';
       data.forEach(row => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
-        `;
+        tr.innerHTML = \`
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">\${row['Location'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">\${row['Payment Date'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">\${row['Permitted Until'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">\${generateMapLinks(row['Location'])}</td>
+        \`;
         tbody.appendChild(tr);
       });
     })
@@ -466,6 +471,7 @@ defaultSize = 100;
       console.error('Error fetching data:', error);
     });
 </script>
+
 <section style="margin-top: 30px;">
 <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Drone Details</h3>
 <div style="overflow-x: auto;">
