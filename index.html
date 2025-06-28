@@ -12,7 +12,7 @@
 <meta content="caaslmin" name="author"/>
 <meta content="Civil Aviation Authority of Sri Lanka is a statutory board under the Ministry of Tourism and Aviation, which supports and develops Sri Lanka's air hub and aviation sector." name="description">
 <meta content="Joomla! - Open Source Content Management" name="generator">
-<title>Drone License Verification</title>
+<title>Permission for Aerial Photography/Filming</title>
 <link href="/templates/poora_temp/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon"/>
 <link href="https://www.caa.lk/en/component/search/?Itemid=434&amp;format=opensearch" rel="search" title="Search Civil Aviation Authority of Sri Lanka" type="application/opensearchdescription+xml"/>
 <link href="https://www.caa.lk/media/com_acym/css/module.min.css?v=6110" rel="stylesheet"/>
@@ -397,11 +397,15 @@ defaultSize = 100;
 <meta content="en-GB" itemprop="inLanguage"/>
 <div class="page-header">
 <h2 itemprop="headline">
-			Drone License Verification		</h2>
+			Approval to fly a drone for aerial filming		</h2>
 </div>
 <div itemprop="articleBody">
 <div class="container" style="max-width: 100%; padding: 15px;">
-<h2 class="verified" style="color: green; font-weight: bold; font-size: 20px; margin-top: 5px; margin-bottom: 10px;">License Verified ✔</h2>
+
+<h2 class="verified" style="color: black; font-weight: bold; font-size: 20px; margin-top: 5px; margin-bottom: 10px;">
+  Permission Status: <span style="color: green;">GRANTED ✔</span>
+</h2>
+
 <section style="margin-top: 30px;">
 <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">License Holder Information</h3>
 <div style="overflow-x: auto;">
@@ -429,7 +433,9 @@ defaultSize = 100;
           <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Filming Locations</th>
           <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Payment Date</th>
           <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Filming Dates</th>
-          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Map</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Approval Letter</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Flight Territory</th>
+
         </tr>
       </thead>
       <tbody id="operational-areas-body">
@@ -456,6 +462,9 @@ defaultSize = 100;
           <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
           <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
           <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
+          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
+            <a href="https://drive.google.com/file/d/1TYHTMj43EMatOvZVbsgzkRN_R4FkEYNT/preview" target="_blank" rel="noopener noreferrer">View PDF</a>
+          </td>
           <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
         `;
         tbody.appendChild(tr);
@@ -550,9 +559,6 @@ defaultSize = 100;
 <div class="custom">
 <p><a href="https://portal.caa.lk/cli/"><span class="PStext">Rate Us </span></a></p></div>
 </div>
-</div>
-<div class="Psurvay SubCribe">
-<div class="Picons"> <i class="fa fa-envelope"></i>
 </div>
 <div class="moduletable">
 <script type="text/javascript">
