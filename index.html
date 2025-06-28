@@ -126,7 +126,7 @@ jQuery(window).on('load',  function() {
 <div class="header" id="header">
 <div class="hide-desktop">
 <div class="headermenu">
-<a href="#menumob"></a>
+<a href="#menumob">☰</a>
 <nav id="menumob">
 <ul class="nav menu">
 <li class="item-101"><a href="/en/">Home</a></li><li class="item-102 deeper parent"><a href="#">About Us</a><ul class="nav-child unstyled small"><li class="item-128"><a href="/en/about-us/about-caasl">About CAASL</a></li><li class="item-129 deeper parent"><a href="#">History of CAASL</a><ul class="nav-child unstyled small"><li class="item-283"><a href="/en/about-us/history-of-caasl/evolution-of-caasl">Evolution of CAASL</a></li><li class="item-284"><a href="/en/about-us/history-of-caasl/department-of-civil-aviation">Department of Civil Aviation</a></li></ul></li><li class="item-130"><a href="/en/about-us/sri-lankan-aviation-history">Sri Lankan Aviation History</a></li><li class="item-309"><a href="/en/about-us/board-of-directors">Board of Directors</a></li><li class="item-310"><a href="https://www.caa.lk/images/stories/pdf/ORG/Updated_OOS_June2024.pdf" rel="noopener noreferrer" target="_blank">Organizational Structure</a></li></ul></li><li class="item-408 active deeper parent"><a href="#">Personnel Licences</a><ul class="nav-child unstyled small"><li class="item-429"><a href="/en/personnel-licences/student-pilot-licence">Student Pilot Licence (SPL)</a></li><li class="item-430"><a href="/en/personnel-licences/private-pilot-licence-ppl">Private Pilot Licence (PPL)</a></li><li class="item-431"><a href="/en/personnel-licences/commercial-pilot-licence-cpl">Commercial Pilot Licence (CPL)</a></li><li class="item-432"><a href="/en/personnel-licences/airline-transport-pilot-licence-atpl">Airline Transport Pilot Licence (ATPL)</a></li><li class="item-433"><a href="/en/personnel-licences/air-traffic-controller-atc-licence">Air Traffic Controller (ATC) Licence</a></li><li class="item-436"><a href="/en/personnel-licences/flight-operation-officer-foo-licence">Flight Operation Officer (FOO) Licence</a></li><li class="item-437"><a href="/en/personnel-licences/aeronautical-station-operator-aso-licence">Aeronautical Station Operator (ASO) Licence</a></li><li class="item-438"><a href="/en/personnel-licences/aircraft-maintenance-aml-licence">Aircraft Maintenance (AML) Licence </a></li><li class="item-439"><a href="/en/personnel-licences/conversion-of-foreign-flight-crew-licence-to-sri-lanka-flight-crew-licence">Conversion of Foreign Flight Crew Licence to Sri Lanka Flight Crew Licence</a></li><li class="item-434 current active"><a href="/en/personnel-licences/counter-checklists">Drone License Verification</a></li></ul></li><li class="item-124 deeper parent"><a href="#">FAQs</a><ul class="nav-child unstyled small"><li class="item-297"><a href="/en/faqs/on-aviation-security">On Aviation Security</a></li><li class="item-298"><a href="/en/faqs/on-aircraft-operations">On Aircraft Operations</a></li><li class="item-299"><a href="/en/faqs/on-personal-licences">On Personnel Licences</a></li><li class="item-300"><a href="/en/faqs/on-travel-agents">On Travel Agents</a></li><li class="item-304"><a href="/en/faqs/on-airworthiness">On Airworthiness</a></li><li class="item-347"><a href="/en/faqs/on-air-navigation-services">On Air Navigation Services</a></li><li class="item-414"><a href="/en/faqs/on-aeromedical-services">On Aeromedical Services</a></li><li class="item-428"><a href="/en/faqs/on-examination-centre">On Examination Centre</a></li></ul></li><li class="item-125"><a href="/en/employment">Employment</a></li><li class="item-126 deeper parent"><a href="/en/news">News</a><ul class="nav-child unstyled small"><li class="item-133"><a href="/en/news/latest-news">News</a></li><li class="item-134"><a href="/en/news/events">Events</a></li></ul></li><li class="item-127"><a href="/en/rti">RTI</a></li><li class="item-104 deeper parent"><a href="#">Downloads</a><ul class="nav-child unstyled small"><li class="item-143"><a href="/images/2020/Web_Basa_Update_10Aug2020.pdf" rel="noopener noreferrer" target="_blank">Air Service Agreements</a></li><li class="item-145"><a href="/en/downloads/annual-reports">Annual Reports</a></li><li class="item-146"><a href="/en/downloads/applications">Applications</a></li><li class="item-136"><a href="/en/downloads/citizens-clients-charter">Citizens Clients Charter</a></li><li class="item-341"><a href="/en/downloads/fees-charges" target="_blank">Fees &amp; Charges</a></li><li class="item-135"><a href="/en/downloads/guidance-material">Guidance Material</a></li><li class="item-139"><a href="/en/downloads/icao-audit-reports-on-sl">ICAO Audit Reports on SL</a></li><li class="item-303"><a href="/en/downloads/land-and-water-aerodromes-in-sri-lanka">Land and water Aerodromes in Sri Lanka</a></li><li class="item-144"><a href="/en/downloads/reports-of-domestic-aviation-matters">Reports of Domestic Aviation Matters</a></li><li class="item-138"><a href="/en/downloads/sl-aircraft-register">SL Aircraft Register</a></li><li class="item-137"><a href="/en/downloads/state-safety-program">State Safety Program</a></li><li class="item-147"><a href="/en/downloads/safety-posters">Safety Posters</a></li><li class="item-419"><a href="/en/downloads/safety-quality-notices">Safety &amp; Quality Notices</a></li></ul></li><li class="item-107 deeper parent"><a href="#">Contacts</a><ul class="nav-child unstyled small"><li class="item-120"><a href="/en/contacts/contact-details">Contact Details</a></li><li class="item-401"><a href="/en/contacts/report-an-aircraft-accident-or-incident">Report an aircraft accident/incident</a></li></ul></li></ul>
@@ -459,26 +459,34 @@ defaultSize = 100;
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
   }
 
-  fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
-    .then(response => response.json())
-    .then(data => {
-      const tbody = document.getElementById('operational-areas-body');
-      tbody.innerHTML = '';
-      data.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
-            <a href="https://drive.google.com/file/d/1TYHTMj43EMatOvZVbsgzkRN_R4FkEYNT/preview" target="_blank" rel="noopener noreferrer">View PDF</a>
-          </td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    })
-    .catch(error => {
+  
+fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
+  .then(response => response.json())
+  .then(data => {
+    const tbody = document.getElementById('operational-areas-body');
+    tbody.innerHTML = '';
+    data.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${row['Location'] || ''}</td>
+        <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Payment Date'] || ''}</td>
+        <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${row['Permitted Until'] || ''}</td>
+        <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
+          <a href="${row['Approval Letter']}" target="_blank" rel="noopener noreferrer">View PDF</a>
+        </td>
+        <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
+          <a href="${generateGoogleMapsLink(row['Location'])}" target="_blank">View Map</a>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  })
+  .catch(error => {
+    document.getElementById('operational-areas-body').innerHTML =
+      `<tr><td colspan="5" style="color: red; padding: 10px; text-align: center;">Failed to load data</td></tr>`;
+    console.error('Error fetching data:', error);
+  });
+
       document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="4" style="color: red; padding: 10px; text-align: center;">Failed to load data</td></tr>`;
       console.error('Error fetching data:', error);
     });
