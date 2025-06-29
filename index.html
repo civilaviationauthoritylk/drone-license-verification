@@ -537,6 +537,97 @@ defaultSize = 100;
 </tbody>
 </table>
 </div>
+<section style="margin-top: 30px;">
+  <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Pre-Flight Checklist</h3>
+  <div style="overflow-x: auto;">
+    <table id="pre-flight-checklist" style="border-collapse: collapse; margin-top: 10px; width: 100%; max-width: 100%;">
+      <thead>
+        <tr style="background-color: #f9f9f9;">
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Location</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Restricted Area</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Wind Speed Check</th>
+        </tr>
+      </thead>
+      <tbody id="pre-flight-body">
+        <tr><td colspan="3" style="padding: 10px; text-align: center;">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  const sheetUrl = 'https://sheetdb.io/api/v1/qcxgankmxf2tl';
+  const apiKey = 'b9c5ef80e87d563c7abb0a8628180899';
+
+  function categorizeWindSpeed(speed) {
+    if (speed < 6) return {
+      label: `${speed} m/s — Light Wind`,
+      color: 'green',
+      dot: '🟢'
+    };
+    if (speed <= 12) return {
+      label: `${speed} m/s — Moderate Breeze`,
+      color: 'orange',
+      dot: '🟡'
+    };
+    return {
+      label: `${speed} m/s — Strong Wind`,
+      color: 'red',
+      dot: '🔴'
+    };
+  }
+
+  async function fetchWindSpeed(locationName) {
+    try {
+      const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}`);
+      const geoData = await geoRes.json();
+      if (!geoData.length) throw new Error("No geodata");
+      const { lat, lon } = geoData[0];
+
+      const weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
+      const weatherData = await weatherRes.json();
+      const windSpeed = weatherData.wind.speed;
+
+      const category = categorizeWindSpeed(windSpeed);
+      return `<span style='color:${category.color};'>${category.dot} ${category.label}</span>`;
+    } catch (err) {
+      return `<span style='color:gray;'>Unavailable</span>`;
+    }
+  }
+
+  async function loadChecklist() {
+    const tbody = document.getElementById("pre-flight-body");
+    tbody.innerHTML = '';
+    try {
+      const response = await fetch(sheetUrl);
+      const data = await response.json();
+      for (const row of data) {
+        const location = row['Location'] || 'Unknown';
+        const windCell = document.createElement('td');
+        windCell.style.padding = '6px 10px';
+        windCell.style.border = '1px solid #ddd';
+        windCell.style.textAlign = 'center';
+        windCell.innerHTML = 'Checking...';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style='padding: 6px 10px; border: 1px solid #ddd;'>${location}</td>
+          <td style='padding: 6px 10px; border: 1px solid #ddd; color: green; text-align: center;'>Non Restricted</td>
+        `;
+        tr.appendChild(windCell);
+        tbody.appendChild(tr);
+
+        const windHtml = await fetchWindSpeed(location);
+        windCell.innerHTML = windHtml;
+      }
+    } catch (error) {
+      tbody.innerHTML = `<tr><td colspan='3' style='padding: 10px; text-align: center; color: red;'>Failed to load data</td></tr>`;
+      console.error("Error loading checklist:", error);
+    }
+  }
+
+  loadChecklist();
+</script>
 </section>
 <section style="margin-top: 40px;">
 <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">General Drone Operating Rules</h3>
