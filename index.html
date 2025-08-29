@@ -468,58 +468,54 @@ defaultSize = 100;
 </table>
 </div>
 <section style="margin-top: 30px;">
-<h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Approved Operational Areas</h3>
-<div style="overflow-x: auto;">
-<table id="operational-areas-table" style="border-collapse: collapse; margin-top: 10px; width: auto; max-width: 100%;">
-<thead>
-<tr style="background-color: #f9f9f9;">
-<th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Filming Locations</th>
-<th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid From</th>
-<th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid Until</th>
-<th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Approval Documents</th>
-<th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Flight Territory</th>
-</tr>
-</thead>
-<tbody id="operational-areas-body">
-<tr><td colspan="4" style="padding: 10px; text-align: center;">Loading data...</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-<script>
-  function generateGoogleMapsLink(location) {
-    const query = encodeURIComponent(location);
-    return `https://www.google.com/maps/search/?api=1&query=${query}`;
-  }
+  <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Approved Operational Areas</h3>
 
-  fetch('https://sheetdb.io/api/v1/qcxgankmxf2tl')
-    .then(response => response.json())
-    .then(data => {
-      const tbody = document.getElementById('operational-areas-body');
-      tbody.innerHTML = '';
-      data.forEach(row => {
-        const approvalUrl = row['Approval Letter'] || '#';
-        const location = row['Location'] || '';
-        const paymentDate = row['Payment Date'] || '';
-        const permittedUntil = row['Permitted Until'] || '';
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: left;">${location}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${paymentDate}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">${permittedUntil}</td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">
-            <a href="${approvalUrl}" target="_blank" rel="noopener noreferrer">View PDF</a>
-          </td>
-          <td style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;"><a href="${generateGoogleMapsLink(location)}" target="_blank">View Map</a></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    })
-    .catch(error => {
-      document.getElementById('operational-areas-body').innerHTML = `<tr><td colspan="5" style="color: red; padding: 10px; text-align: center;">Failed to load data</td></tr>`;
-      console.error('Error fetching data:', error);
-    });
-</script>
+  <!-- Table wrapper -->
+  <div style="overflow-x: auto;">
+    <table id="operational-areas-table" style="border-collapse: collapse; margin-top: 10px; width: 100%;">
+      <thead>
+        <tr style="background-color: #f9f9f9;">
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Filming Locations</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid From</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid Until</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Approval Documents</th>
+          <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Flight Territory</th>
+        </tr>
+      </thead>
+      <tbody id="operational-areas-body">
+        <tr><td colspan="5" style="padding: 10px; text-align: center;">Loading data...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Link placed outside the table wrapper -->
+  <div style="margin-top: 10px; text-align: left;">
+    <a href="javascript:void(0)" id="toggle-expired-link" style="font-style: italic; color: #007bff; cursor: pointer;">
+      Show expired approvals
+    </a>
+  </div>
+
+  <!-- Expired Section -->
+  <div id="expired-section" style="display:none; margin-top: 15px;">
+    <h4 style="margin-top: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Approval History (Expired)</h4>
+    <div style="overflow-x: auto;">
+      <table id="expired-approvals-table" style="border-collapse: collapse; margin-top: 10px; width: 100%;">
+        <thead>
+          <tr style="background-color: #f9f9f9;">
+            <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Filming Locations</th>
+            <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid From</th>
+            <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Valid Until</th>
+            <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Approval Documents</th>
+            <th style="padding: 6px 10px; border: 1px solid #ddd; text-align: center;">Flight Territory</th>
+          </tr>
+        </thead>
+        <tbody id="expired-approvals-body">
+          <tr><td colspan="5" style="padding: 10px; text-align: center;">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 <section style="margin-top: 30px;">
 <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 5px;">Drone Details</h3>
 <div style="overflow-x: auto;">
